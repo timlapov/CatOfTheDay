@@ -7,11 +7,6 @@
 
 import UIKit
 
-enum Link: String {
-    case imageURL = "https://cataas.com/cat"
-    case factURL = "https://meowfacts.herokuapp.com"
-}
-
 class CatViewController: UIViewController {
 
     @IBOutlet var catImageView: UIImageView!
@@ -23,8 +18,9 @@ class CatViewController: UIViewController {
     }
 
     @IBAction func catGeneratorButton() {
-        fetchCatImage()
         fetchCatFact()
+        fetchCatImage()
+
     }
 
 }
