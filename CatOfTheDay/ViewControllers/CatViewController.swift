@@ -11,58 +11,49 @@ class CatViewController: UIViewController {
 
     @IBOutlet var catImageView: UIImageView!
     @IBOutlet var catFactTextView: UITextView!
-
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         catImageView.image = UIImage(named: "defaultCat.jpg")
+        activityIndicator.isHidden = true
     }
 
     @IBAction func catGeneratorButton() {
+        catImageView.isHidden = true
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        catFactTextView.isHidden = true
         fetchCatFact()
         fetchCatImage()
+    }
 
+    private func fetchCatImage() {
+        NetworkManager.shared.fetchCatImage(from: Link.imageURL.rawValue) { result in
+            switch result {
+            case .success(let imageData):
+                self.catImageView.image = UIImage(data: imageData)
+                self.catImageView.isHidden = false
+                self.activityIndicator.stopAnimating()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+
+    private func fetchCatFact() {
+        NetworkManager.shared.fetchCatFact(from: Link.factURL.rawValue) { result in
+            switch result {
+            case .success(let fact):
+                self.catFactTextView.text = fact.data[0]
+                self.catFactTextView.isHidden = false
+                self.activityIndicator.stopAnimating()
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
 }
 
-extension CatViewController {
-    func fetchCatImage() {
-        guard let url = URL(string: Link.imageURL.rawValue) else { return }
-
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-
-            guard let image = UIImage(data: data) else { return }
-
-            DispatchQueue.main.async {
-                self.catImageView.image = image
-            }
-        }.resume()
-    }
-
-    func fetchCatFact() {
-        guard let url = URL(string: Link.factURL.rawValue) else { return }
-
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-            let decoder = JSONDecoder()
-            do {
-                let fact = try decoder.decode(Fact.self, from: data)
-                DispatchQueue.main.async {
-                    self.catFactTextView.text = fact.data[0]
-                }
-                print(fact)
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }.resume()
-
-    }
-}
 

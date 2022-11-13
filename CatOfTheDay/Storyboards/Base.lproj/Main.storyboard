@@ -27,7 +27,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Click the button to download a fact about cats" textAlignment="justified" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mel-qg-1Bv">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" text="Click the button to download a fact about cats" textAlignment="justified" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mel-qg-1Bv">
                                 <rect key="frame" x="16" y="440" width="361" height="292"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -51,6 +51,9 @@
                                     <action selector="catGeneratorButton" destination="BYZ-38-t0r" eventType="touchUpInside" id="K4o-80-Wiw"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="hah-RV-Nkr">
+                                <rect key="frame" x="178" y="231" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -63,11 +66,14 @@
                             <constraint firstItem="mel-qg-1Bv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="HBD-vV-kLx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hyg-Ph-NMc" secondAttribute="trailing" constant="16" id="NGW-68-KSl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mel-qg-1Bv" secondAttribute="bottom" constant="86" id="e4U-RC-Yxx"/>
+                            <constraint firstItem="hah-RV-Nkr" firstAttribute="centerY" secondItem="Bk1-17-jnd" secondAttribute="centerY" id="ji9-gS-20f"/>
+                            <constraint firstItem="hah-RV-Nkr" firstAttribute="centerX" secondItem="Bk1-17-jnd" secondAttribute="centerX" id="rkK-5g-gYX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Hyg-Ph-NMc" secondAttribute="bottom" constant="8" id="tNk-Ac-XJb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mel-qg-1Bv" secondAttribute="trailing" constant="16" id="wA2-bN-pfm"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="hah-RV-Nkr" id="akj-M6-ymC"/>
                         <outlet property="catFactTextView" destination="mel-qg-1Bv" id="eTv-ra-9Uj"/>
                         <outlet property="catImageView" destination="Bk1-17-jnd" id="2Ta-QA-DOh"/>
                     </connections>
